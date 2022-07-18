@@ -12,10 +12,11 @@
 
 (function () {
   //使用网站
+  let wrap = true; // 如果为true，则 “视频选集” 的文字换行
   const configs = [
     {
-      h1Title: '2022版Flink1.13实战教程',
-      reg: /\d{2,}_(第(.*)章_)?/,
+      h1Title: '2022版Flink1.13实战教程', // 标题
+      reg: /\d{2,}_(第(.*)章_)?/,        // 删除的前缀
     },
     {
       h1Title: '尚硅谷Java入门视频教程',
@@ -24,8 +25,20 @@
   ];
   let flag = false; //是否已经执行
 
+  function modifyCss() {
+    document.querySelectorAll('span.part').forEach(ele => {
+      ele.style.whiteSpace = 'normal';
+      ele.style.lineHeight = '20px';
+    });
+    document
+      .querySelectorAll('.multi-page-v1 .cur-list .list-box li')
+      .forEach(ele => {
+        ele.style.height = 'auto';
+      });
+  }
   function doIt() {
     try {
+      wrap && modifyCss();
       flag === false &&
         (function () {
           const title = document.querySelector('h1').title;
@@ -68,7 +81,7 @@
     }
     records.forEach(function (record) {
       const dom = record.target;
-      const { text: oldContent, className } = dom;
+      const { className } = dom;
       if (
         typeof className === 'string' &&
         className.includes('right-container')
