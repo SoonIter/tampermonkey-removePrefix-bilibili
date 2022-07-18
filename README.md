@@ -11,7 +11,10 @@
 
 <img src="https://raw.githubusercontent.com/SoonIter/tampermonkey-removePrefix-bilibili/main/docs/imgs/after.png" alt="after" style="zoom: 33%;" />
 
+![effect](https://raw.githubusercontent.com/SoonIter/tampermonkey-removePrefix-bilibili/main/docs/imgs/effect.png)
+
 #   修改使用网站
+
 ```javascript
   const configs = [
       {
