@@ -1,7 +1,7 @@
 // ==UserScript==
-// @name         尚硅谷-bilibili视频删去前缀
+// @name         尚硅谷-bilibili视频删去前缀-tampermonkey-removePrefix-bilibili
 // @namespace    http://tampermonkey.net/
-// @version      0.1
+// @version      0.2
 // @description  一个脚本去除bilibili视频分集的过长的前缀
 // @author       SoonIter
 // @match        https://www.bilibili.com/video/**
@@ -9,66 +9,77 @@
 // @grant        none
 // ==/UserScript==
 
-(function() {
+(function () {
   //使用网站
   const configs = [
-      {
-          h1Title:'2022版Flink1.13实战教程',
-          reg:/\d{2,}_(第(.*)章_)?/
-      },{
-          h1Title:'尚硅谷Java入门视频教程',
-          reg:/\d{2,}\.尚硅谷\_/
-      }
-  ]
+    {
+      h1Title: '2022版Flink1.13实战教程',
+      reg: /\d{2,}_(第(.*)章_)?/,
+    },
+    {
+      h1Title: '尚硅谷Java入门视频教程',
+      reg: /\d{2,}\.尚硅谷\_/,
+    },
+  ];
   let flag = false; //是否已经执行
 
-  function doIt(){
-      try{
-          flag === false && (function(){
-              const title = document.querySelector('h1').title;
-              const item = configs.find(i => title.search(i.h1Title) !== -1);
-              if(item === undefined){
-                  return;
-              }
-              console.log('执行脚本')
-              const {h1Title, reg} = item;
-              let arr = []
-              const parts = document.querySelectorAll('div.link-content')
-              for (const parentDom of parts) {
-                  const Px = parentDom.querySelector('span.page-num');
-                  arr.push(Px.innerHTML)
-                  arr.push(' ')
-                  const dom = parentDom.querySelector('span.part')
-                  const content = dom.innerHTML;
-                  const newContent = content.replace(reg,'')
-                  dom.innerHTML = newContent;
-                  arr.push(newContent)
-                  arr.push('\n')
-              }
-              console.log(arr.join(''))
-          })();
-          flag = true
-      }
-      catch(err){
-          console.log("脚本发生错误",err.message)
-      }
+  function doIt() {
+    try {
+      flag === false &&
+        (function () {
+          const title = document.querySelector('h1').title;
+          const item = configs.find(i => title.search(i.h1Title) !== -1);
+          if (item === undefined) {
+            return;
+          }
+          const { h1Title, reg } = item;
+          let arr = [];
+          const parts = document.querySelectorAll('div.link-content');
+          for (const parentDom of parts) {
+            const Px = parentDom.querySelector('span.page-num');
+            arr.push(Px.innerHTML);
+            arr.push(' ');
+            const dom = parentDom.querySelector('span.part');
+            const content = dom.innerHTML;
+            const newContent = content.replace(reg, '');
+            dom.innerHTML = newContent;
+            arr.push(newContent);
+            arr.push('\n');
+          }
+          console.log(
+            '%c tampermonkey-removePrefix-bilibili:执行脚本成功:',
+            'color:white;background:green;',
+            arr.join(''),
+          );
+        })();
+      flag = true;
+    } catch (err) {
+      console.log(
+        '%c tampermonkey-removePrefix-bilibili:发生未知错误:',
+        'color:white;background:red;',
+        err.message,
+      );
+    }
   }
   const callback = function (records) {
-      if(flag !== false){
-          return;
+    if (flag !== false) {
+      return;
+    }
+    records.forEach(function (record) {
+      const dom = record.target;
+      const { text: oldContent, className } = dom;
+      if (
+        typeof className === 'string' &&
+        className.includes('right-container')
+      ) {
+        doIt();
       }
-      records.forEach(function (record) {
-          const dom = record.target;
-          const {text:oldContent,className} = dom;
-          if(typeof className ==='string' && className.includes('right-container')){
-              doIt()
-          }
-      });
+    });
   };
   const observer = new MutationObserver(callback);
-  const observeDOM = document.body
+  const observeDOM = document.body;
   observer.observe(observeDOM, {
-      childList:true,
-      subtree: true
+    childList: true,
+    subtree: true,
   });
 })();
