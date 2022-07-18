@@ -23,4 +23,6 @@
 ```
 
 
+<img src="https://raw.githubusercontent.com/SoonIter/tampermonkey-removePrefix-bilibili/main/docs/imgs/effect.png" alt="effect" style="zoom: 33%;" />
+
 
