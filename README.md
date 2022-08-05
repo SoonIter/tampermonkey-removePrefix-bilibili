@@ -1,6 +1,8 @@
 # tampermonkey-removePrefix-bilibili
  一个脚本去除bilibili视频分集的过长的前缀
 
+[Go to Github](https://github.com/SoonIter/tampermonkey-removePrefix-bilibili)
+
 [Go to Greasyfork and Dowload](https://greasyfork.org/zh-CN/scripts/448038-%E5%B0%9A%E7%A1%85%E8%B0%B7-bilibili%E8%A7%86%E9%A2%91%E5%88%A0%E5%8E%BB%E5%89%8D%E7%BC%80-tampermonkey-removeprefix-bilibili)
 
 ![effect](./docs/imgs/effect.jpg)
