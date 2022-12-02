@@ -26,6 +26,13 @@
   let flag = false; //是否已经执行
 
   function modifyCss() {
+    let styleDom = document.createElement('style');
+    styleDom.innerHTML = `
+    .video-episode-card__info-title{
+         white-space:normal !important;
+    }
+    `;
+    document.head.appendChild(styleDom);
     document.querySelectorAll('span.part').forEach(ele => {
       ele.style.whiteSpace = 'normal';
       ele.style.lineHeight = '20px';
