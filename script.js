@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         尚硅谷-bilibili视频删去前缀-tampermonkey-removePrefix-bilibili
 // @namespace    http://tampermonkey.net/
-// @version      0.3
+// @version      0.4
 // @description  一个脚本去除bilibili视频分集的过长的前缀
 // @author       SoonIter
 // @match        https://www.bilibili.com/video/**
@@ -26,6 +26,13 @@
   let flag = false; //是否已经执行
 
   function modifyCss() {
+    let styleDom = document.createElement('style');
+    styleDom.innerHTML = `
+    .video-episode-card__info-title{
+         white-space:normal !important;
+    }
+    `;
+    document.head.appendChild(styleDom);
     document.querySelectorAll('span.part').forEach(ele => {
       ele.style.whiteSpace = 'normal';
       ele.style.lineHeight = '20px';
