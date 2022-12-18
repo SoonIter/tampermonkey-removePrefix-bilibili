@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         bilibili视频选集拉长-删去前缀-tampermonkey-removePrefix-bilibili
-// @namespace    http://tampermonkey.net/
-// @version      0.5
+// @namespace    https://github.com/SoonIter/tampermonkey-removePrefix-bilibili
+// @version      0.6
 // @description  一个脚本解决bilibili视频分集的过长的问题
 // @author       SoonIter
 // @match        https://www.bilibili.com/video/**
@@ -9,7 +9,6 @@
 // @grant        none
 // @license      MIT
 // ==/UserScript==
-// Github: https://github.com/SoonIter/tampermonkey-removePrefix-bilibili
 
 (function () {
   //使用网站
@@ -47,7 +46,7 @@
     }
 
     .video-sections-content-list{
-         height:500px !important;
+         height:auto !important;
          max-height:500px !important;
     }
     `;
