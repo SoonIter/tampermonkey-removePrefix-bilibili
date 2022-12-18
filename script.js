@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name         尚硅谷-bilibili视频删去前缀-tampermonkey-removePrefix-bilibili
+// @name         bilibili视频选集拉长-删去前缀-tampermonkey-removePrefix-bilibili
 // @namespace    http://tampermonkey.net/
-// @version      0.4
-// @description  一个脚本去除bilibili视频分集的过长的前缀
+// @version      0.5
+// @description  一个脚本解决bilibili视频分集的过长的问题
 // @author       SoonIter
 // @match        https://www.bilibili.com/video/**
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=bilibili.com
@@ -30,6 +30,24 @@
     styleDom.innerHTML = `
     .video-episode-card__info-title{
          white-space:normal !important;
+         max-height:100px !important;
+    }
+    .video-episode-card {
+         height:auto !important;
+         min-height:auto !important;
+    }
+    .video-section-list{
+         height:auto !important;
+         min-height:auto !important;
+    }
+    .video-episode-card__info{
+         height:auto !important;
+         min-height:auto !important;
+    }
+
+    .video-sections-content-list{
+         height:500px !important;
+         max-height:500px !important;
     }
     `;
     document.head.appendChild(styleDom);
@@ -45,9 +63,9 @@
   }
   function doIt() {
     try {
-      wrap && modifyCss();
       flag === false &&
         (function () {
+          wrap && modifyCss();
           const title = document.querySelector('h1').title;
           const item = configs.find(i => title.search(i.h1Title) !== -1);
           if (item === undefined) {
