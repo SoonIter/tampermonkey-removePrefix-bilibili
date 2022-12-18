@@ -9,6 +9,7 @@
 // @grant        none
 // @license      MIT
 // ==/UserScript==
+// Github: https://github.com/SoonIter/tampermonkey-removePrefix-bilibili
 
 (function () {
   //使用网站
