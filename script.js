@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         bilibili视频选集拉长-删去前缀-tampermonkey-removePrefix-bilibili
 // @namespace    https://github.com/SoonIter/tampermonkey-removePrefix-bilibili
-// @version      0.6
+// @version      0.7
 // @description  一个脚本解决bilibili视频分集的过长的问题
 // @author       SoonIter
 // @match        https://www.bilibili.com/video/**
@@ -16,7 +16,7 @@
   const configs = [
     {
       h1Title: '2022版Flink1.13实战教程', // 标题
-      reg: /\d{2,}_(第(.*)章_)?/,        // 删除的前缀
+      reg: /\d{2,}_(第(.*)章_)?/, // 删除的前缀
     },
     {
       h1Title: '尚硅谷Java入门视频教程',
@@ -48,6 +48,12 @@
     .video-sections-content-list{
          height:auto !important;
          max-height:500px !important;
+    }
+    /* 去广告 */
+    .vcd,#bannerAd,.video-page-special-card-small {
+      height: 0px !important;
+      width: 0px !important;
+      overflow: hidden;
     }
     `;
     document.head.appendChild(styleDom);
